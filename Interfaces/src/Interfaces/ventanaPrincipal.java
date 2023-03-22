@@ -67,7 +67,7 @@ public class ventanaPrincipal extends JFrame {
 	 */
 	public ventanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 686, 783);
+		setBounds(100, 100, 569, 783);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,28 +92,35 @@ public class ventanaPrincipal extends JFrame {
 		Nombre = new JTextField();
 		Nombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		
-		Nombre.setBounds(167, 98, 218, 42);
+		Nombre.setBounds(167, 98, 147, 42);
 		Nombre.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		Nombre.setHorizontalAlignment(SwingConstants.CENTER);
 		Nombre.setText("Enter your name");
+		Nombre.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) || Nombre.getText().length() >= 9) {
+		            e.consume();
+		        }
+		    }
+		});
 		Nombre.addFocusListener(new FocusAdapter() {
-			
-			public void focusGained(FocusEvent e) {
-				if(Nombre.getText().equals("Enter your name")) {
-					Nombre.setText("");
-					Nombre.setForeground(new Color(0,0,0));
-				}
-			}
-			
-			public void focusLost(FocusEvent e) {
-				if(Nombre.getText().equals("")){
-					Nombre.setText("Enter your name");
-					Nombre.setForeground(new Color(0,0,0));
-				}
-			}
+		    public void focusGained(FocusEvent e) {
+		        if(Nombre.getText().equals("Enter your name")) {
+		            Nombre.setText("");
+		            Nombre.setForeground(new Color(0,0,0));
+		        }
+		    }
+		    public void focusLost(FocusEvent e) {
+		        if(Nombre.getText().equals("")) {
+		            Nombre.setText("Enter your name");
+		            Nombre.setForeground(new Color(0,0,0));
+		        }
+		    }
 		});
 
 
@@ -135,13 +142,13 @@ public class ventanaPrincipal extends JFrame {
 		JLabel TituloRegistro = new JLabel("Register Form");
 		TituloRegistro.setForeground(SystemColor.window);
 		TituloRegistro.setBackground(SystemColor.desktop);
-		TituloRegistro.setBounds(20, 0, 649, 65);
+		TituloRegistro.setBounds(-29, 0, 649, 65);
 		panel.add(TituloRegistro);
 		TituloRegistro.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
 		TituloRegistro.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JCheckBox Terminos = new JCheckBox("I accept Terms and Conditions");
-		Terminos.setBounds(231, 560, 232, 32);
+		Terminos.setBounds(164, 564, 232, 32);
 		Terminos.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		Terminos.setBackground(new Color(255, 255, 255));
 		Terminos.setForeground(new Color(0, 0, 0));
@@ -151,8 +158,11 @@ public class ventanaPrincipal extends JFrame {
 		botonregistro1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        String telefono = ntelefono.getText().trim(); 
+		        String codigo = ncodigo.getText().trim();
 		        if (!telefono.matches("\\d{9}")) { 
 		            JOptionPane.showMessageDialog(null, "Please enter a valid phone number.", "Invalid phone number", JOptionPane.ERROR_MESSAGE);
+		        } else if (!codigo.matches("[1-3]{1,3}")) {
+		            JOptionPane.showMessageDialog(null, "Introduce un Código de Area válido", "Invalid code", JOptionPane.ERROR_MESSAGE);
 		        } else {	   
 		            JFrame frame = new InicioSesion();
 		            frame.setVisible(true);
@@ -162,7 +172,7 @@ public class ventanaPrincipal extends JFrame {
 		});
 		
 		
-		botonregistro1.setBounds(254, 664, 184, 61);
+		botonregistro1.setBounds(184, 657, 184, 61);
 		botonregistro1.setForeground(Color.WHITE);
 		botonregistro1.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
 		botonregistro1.setBackground(Color.BLACK);
@@ -175,6 +185,28 @@ public class ventanaPrincipal extends JFrame {
 				if(Apellido.getText().equals("Enter your Last Name")) {
 					Apellido.setText("");
 					Apellido.setForeground(new Color(0,0,0));
+					Apellido.addKeyListener(new KeyAdapter() {
+					    public void keyTyped(KeyEvent e) {
+					        char c = e.getKeyChar();
+					        if (!Character.isLetter(c) || Apellido.getText().length() >= 20) {
+					            e.consume();
+					        }
+					    }
+					});
+					Apellido.addFocusListener(new FocusAdapter() {
+					    public void focusGained(FocusEvent e) {
+					        if(Apellido.getText().equals("Enter your name")) {
+					        	Apellido.setText("");
+					        	Apellido.setForeground(new Color(0,0,0));
+					        }
+					    }
+					    public void focusLost(FocusEvent e) {
+					        if(Apellido.getText().equals("")) {
+					        	Apellido.setText("Enter your name");
+					        	Apellido.setForeground(new Color(0,0,0));
+					        }
+					    }
+					});
 				}
 			}
 			
@@ -188,7 +220,7 @@ public class ventanaPrincipal extends JFrame {
 	
 		
 		
-		Apellido.setBounds(407, 98, 218, 42);
+		Apellido.setBounds(356, 98, 147, 42);
 		Apellido.setText("Enter your Last Name");
 		Apellido.setHorizontalAlignment(SwingConstants.CENTER);
 		Apellido.setForeground(Color.BLACK);
@@ -226,7 +258,7 @@ public class ventanaPrincipal extends JFrame {
 		});
 		
 		
-		correo.setBounds(164, 173, 461, 42);
+		correo.setBounds(164, 173, 339, 42);
 		correo.setHorizontalAlignment(SwingConstants.CENTER);
 		correo.setText("example@email.com");
 		correo.setForeground(Color.BLACK);
@@ -237,11 +269,16 @@ public class ventanaPrincipal extends JFrame {
 		
 		ncodigo = new JTextField();
 		ncodigo.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-			
-			
-			}
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!(c >= '0' && c <= '9')) {
+		            e.consume();
+		        }
+		        if (ncodigo.getText().length() >= 3) {
+		            e.consume();
+		        }
+		    }
 		});
 		
 		
@@ -273,7 +310,7 @@ public class ventanaPrincipal extends JFrame {
 		    }
 		});
 		
-		ntelefono.setBounds(301, 246, 324, 42);
+		ntelefono.setBounds(301, 246, 202, 42);
 		ntelefono.setText("Phone Number");
 		ntelefono.setHorizontalAlignment(SwingConstants.CENTER);
 		ntelefono.setForeground(Color.BLACK);
@@ -299,7 +336,7 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(lblSelectYourRegion);
 		
 		JComboBox region = new JComboBox();
-		region.setBounds(231, 329, 394, 42);
+		region.setBounds(231, 329, 272, 42);
 		region.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		region.setBackground(SystemColor.control);
 		region.setModel(new DefaultComboBoxModel(new String[] {"Select Your Region", "Spain", "Italy", "Germany", "Japon", "China"}));
@@ -329,13 +366,13 @@ public class ventanaPrincipal extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Do you already have an account? ");
 		lblNewLabel_4.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		lblNewLabel_4.setBounds(205, 614, 225, 21);
+		lblNewLabel_4.setBounds(142, 614, 225, 21);
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel login = new JLabel("Log In.");
 		login.setForeground(Color.BLUE);
 		login.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		login.setBounds(420, 614, 68, 21);
+		login.setBounds(356, 614, 68, 21);
 		contentPane.add(login);
 		
 		JLabel lblNewLabel_1_3_1 = new JLabel("Password");
@@ -355,12 +392,12 @@ public class ventanaPrincipal extends JFrame {
 		
 		JPasswordField repitecontraseña = new JPasswordField();
 		repitecontraseña.setBackground(SystemColor.controlHighlight);
-		repitecontraseña.setBounds(164, 489, 461, 42);
+		repitecontraseña.setBounds(164, 489, 339, 42);
 		contentPane.add(repitecontraseña);
 		
 		contraseña = new JPasswordField();
 		contraseña.setBackground(SystemColor.controlHighlight);
-		contraseña.setBounds(164, 409, 461, 42);
+		contraseña.setBounds(164, 409, 339, 42);
 		contentPane.add(contraseña);
 	}
 }
