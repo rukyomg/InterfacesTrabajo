@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -16,13 +18,17 @@ import java.awt.SystemColor;
 import javax.swing.JPasswordField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ActionEvent;
 
 public class InicioSesion extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTextField emailsegundo;
-	private JPasswordField contraseñasegundo;
+	private JPasswordField contraseñalogin;
 
 	/**
 	 * Launch the application.
@@ -45,7 +51,7 @@ public class InicioSesion extends JFrame {
 	 */
 	public InicioSesion() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 586, 328);
+		setBounds(100, 100, 544, 712);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -82,56 +88,62 @@ public class InicioSesion extends JFrame {
 		TituloRegistro_2.setBounds(20, 0, 649, 65);
 		panel_1.add(TituloRegistro_2);
 		
-		JLabel lblNewLabel = new JLabel("Log In");
-		lblNewLabel.setBounds(249, 3, 94, 65);
-		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBackground(Color.BLACK);
-		contentPane.add(lblNewLabel);
-		
-		textField = new JTextField();
-		textField.setBounds(0, 3, 596, 65);
-		textField.setBackground(Color.BLACK);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel_1_3 = new JLabel("E-Mail");
-		lblNewLabel_1_3.setBounds(71, 114, 77, 19);
+		JLabel lblNewLabel_1_3 = new JLabel("");
+		lblNewLabel_1_3.setBounds(204, 28, 127, 120);
+		lblNewLabel_1_3.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/giphy (1) (2).gif")));
 		lblNewLabel_1_3.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(lblNewLabel_1_3);
 		
 		JLabel lblNewLabel_1_3_1 = new JLabel("");
-		lblNewLabel_1_3_1.setBounds(20, 114, 53, 19);
+		lblNewLabel_1_3_1.setBounds(69, 189, 53, 19);
 		lblNewLabel_1_3_1.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/mail_30px.png")));
 		lblNewLabel_1_3_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(lblNewLabel_1_3_1);
 		
 		emailsegundo = new JTextField();
-		emailsegundo.setBounds(157, 103, 395, 42);
-		emailsegundo.setText("example@email.com");
-		emailsegundo.setHorizontalAlignment(SwingConstants.CENTER);
+		emailsegundo.setBounds(125, 178, 311, 42);
+		emailsegundo.setText("E-Mail");
+		emailsegundo.setHorizontalAlignment(SwingConstants.LEFT);
 		emailsegundo.setForeground(Color.BLACK);
-		emailsegundo.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		emailsegundo.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		emailsegundo.setColumns(10);
 		emailsegundo.setBackground(SystemColor.controlHighlight);
+		
+		
+		emailsegundo.addFocusListener(new FocusListener() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		        if (emailsegundo.getText().equals("E-Mail")) {
+		            emailsegundo.setText("");
+		            emailsegundo.setForeground(Color.BLACK); 
+		        }
+		    }
+
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (emailsegundo.getText().isEmpty()) {
+		            emailsegundo.setForeground(Color.BLACK); 
+		            emailsegundo.setText("E-Mail");
+		        }
+		    }
+		});
+		
+		
+
 		contentPane.add(emailsegundo);
 		
 		JLabel lblNewLabel_1_3_1_1 = new JLabel("Password");
-		lblNewLabel_1_3_1_1.setBounds(71, 189, 77, 19);
+		lblNewLabel_1_3_1_1.setBounds(125, 189, 77, 19);
 		lblNewLabel_1_3_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(lblNewLabel_1_3_1_1);
 		
-		contraseñasegundo = new JPasswordField();
-		contraseñasegundo.setBackground(SystemColor.controlHighlight);
-		contraseñasegundo.setBounds(157, 180, 395, 42);
-		contentPane.add(contraseñasegundo);
-		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(20, 181, 46, 27);
+		lblNewLabel_1.setBounds(69, 305, 46, 27);
 		lblNewLabel_1.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/password_30px.png")));
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel contraseñaolvidada = new JLabel("Have you forgotten your password?");
+		contraseñaolvidada.setBounds(125, 444, 253, 33);
 		contraseñaolvidada.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -140,9 +152,95 @@ public class InicioSesion extends JFrame {
 				dispose();
 			}
 		});
+		
 		contraseñaolvidada.setForeground(Color.BLUE);
 		contraseñaolvidada.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		contraseñaolvidada.setBounds(188, 248, 263, 33);
 		contentPane.add(contraseñaolvidada);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(157, 102, 45, 106);
+		lblNewLabel.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/giphy.gif")));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(194, 119, 45, 13);
+		lblNewLabel_3.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/giphy (1).gif")));
+		contentPane.add(lblNewLabel_3);
+		
+		JButton botonregistro1 = new JButton("Register");
+		botonregistro1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		botonregistro1.setBounds(157, 585, 184, 61);
+		botonregistro1.setForeground(Color.BLACK);
+		botonregistro1.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
+		botonregistro1.setBackground(Color.WHITE);
+		contentPane.add(botonregistro1);
+		
+		botonregistro1.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String email = emailsegundo.getText();
+		        if (email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {		     
+		            System.out.println("Correo electrónico válido: " + email);
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Ingrese un correo electrónico válido", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+		
+		contraseñalogin = new JPasswordField();
+		contraseñalogin.setBounds(125, 301, 311, 42);
+		contraseñalogin.setBackground(SystemColor.controlHighlight);
+		contentPane.add(contraseñalogin);
+		
+		JButton validarContraseñaBtn = new JButton("Validar contraseña");
+		validarContraseñaBtn.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        char[] passwordChars = contraseñalogin.getPassword();
+		        String password = new String(passwordChars);
+		        
+		       
+		        boolean contraseñaSegura = password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+		        
+		        if (contraseñaSegura) {
+		            JOptionPane.showMessageDialog(null, "La contraseña es segura");
+		        } else {
+		            JOptionPane.showMessageDialog(null, "La contraseña no es segura. La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (@#$%^&+=)");
+		        }
+		    }
+		});
+		validarContraseñaBtn.setBounds(273, 353, 163, 30);
+		contentPane.add(validarContraseñaBtn);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/icons8_invisible_32.png")));
+		lblNewLabel_4.setBounds(455, 305, 46, 53);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel noaccount = new JLabel("Don't have account?");
+		noaccount.setForeground(Color.BLUE);
+		noaccount.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		noaccount.setBounds(177, 512, 164, 33);
+		contentPane.add(noaccount);
+		noaccount.addMouseListener(new MouseAdapter() {	
+		
+		public void mouseClicked(MouseEvent e) {
+			JFrame frame = new ventanaPrincipal();
+			frame.setVisible(true);
+			dispose();
+		}
+	});
+		
+		
+		
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setBounds(-246, 10, 776, 676);
+		lblNewLabel_2.setIcon(new ImageIcon(InicioSesion.class.getResource("/Imagenes/HD-wallpaper-circuit-neon-green-abstract-android-black-board-circuits-computer-motherboard-tech-technology.jpg")));
+		contentPane.add(lblNewLabel_2);
 	}
 }

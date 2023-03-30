@@ -35,6 +35,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 
 public class ventanaPrincipal extends JFrame {
 
@@ -80,16 +82,19 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(comboBox);
 		
 		JLabel lblNewLabel_1 = new JLabel("Name");
+		lblNewLabel_1.setForeground(new Color(0, 255, 0));
 		lblNewLabel_1.setBounds(86, 109, 68, 19);
 		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("E-Mail");
+		lblNewLabel_1_3.setForeground(new Color(0, 255, 0));
 		lblNewLabel_1_3.setBounds(86, 184, 77, 19);
 		lblNewLabel_1_3.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(lblNewLabel_1_3);
 		
 		Nombre = new JTextField();
+		Nombre.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		Nombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -139,10 +144,10 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel TituloRegistro = new JLabel("Register Form");
-		TituloRegistro.setForeground(SystemColor.window);
+		JLabel TituloRegistro = new JLabel("Razer Register Form");
+		TituloRegistro.setForeground(new Color(0, 255, 0));
 		TituloRegistro.setBackground(SystemColor.desktop);
-		TituloRegistro.setBounds(-29, 0, 649, 65);
+		TituloRegistro.setBounds(-30, 0, 649, 65);
 		panel.add(TituloRegistro);
 		TituloRegistro.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
 		TituloRegistro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,26 +155,28 @@ public class ventanaPrincipal extends JFrame {
 		JCheckBox Terminos = new JCheckBox("I accept Terms and Conditions");
 		Terminos.setBounds(164, 564, 232, 32);
 		Terminos.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		Terminos.setBackground(new Color(255, 255, 255));
-		Terminos.setForeground(new Color(0, 0, 0));
+		Terminos.setBackground(new Color(0, 0, 0));
+		Terminos.setForeground(new Color(0, 255, 0));
 		contentPane.add(Terminos);
 		
 		JButton botonregistro1 = new JButton("Register");
-		botonregistro1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        String telefono = ntelefono.getText().trim(); 
-		        String codigo = ncodigo.getText().trim();
-		        if (!telefono.matches("\\d{9}")) { 
-		            JOptionPane.showMessageDialog(null, "Please enter a valid phone number.", "Invalid phone number", JOptionPane.ERROR_MESSAGE);
-		        } else if (!codigo.matches("[1-3]{1,3}")) {
-		            JOptionPane.showMessageDialog(null, "Introduce un Código de Area válido", "Invalid code", JOptionPane.ERROR_MESSAGE);
-		        } else {	   
-		            JFrame frame = new InicioSesion();
-		            frame.setVisible(true);
-		            dispose();
-		        }
-		    }
+			botonregistro1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			String telefono = ntelefono.getText().trim();
+			String codigo = ncodigo.getText().trim();
+					if (!telefono.matches("\\d{9}")) {
+			JOptionPane.showMessageDialog(null, "Please enter a valid phone number.", "Invalid phone number", JOptionPane.ERROR_MESSAGE);
+		} else if (codigo.equals("Area Code")) {
+		JOptionPane.showMessageDialog(null, "Please enter an area code.", "Missing area code", JOptionPane.ERROR_MESSAGE);
+		} else {
+		JFrame frame = new InicioSesion();
+		frame.setVisible(true);
+		dispose();
+				}
+			}
 		});
+		
 		
 		
 		botonregistro1.setBounds(184, 657, 184, 61);
@@ -230,6 +237,7 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(Apellido);
 		
 		JLabel Phone = new JLabel("Phone");
+		Phone.setForeground(new Color(0, 255, 0));
 		Phone.setBounds(86, 257, 77, 19);
 		Phone.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(Phone);
@@ -268,6 +276,42 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(correo);
 		
 		ncodigo = new JTextField();
+		ncodigo.addFocusListener(new FocusAdapter() {
+			@Override
+		    public void focusGained(FocusEvent e) {
+		        if (ncodigo.getText().equals("Area Code")) {
+		        	ncodigo.setText("");
+		        	ncodigo.setForeground(Color.BLACK);
+		        }
+		    }
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (ncodigo.getText().isEmpty()) {
+		        	ncodigo.setText("Area Code");
+		        	ncodigo.setForeground(Color.BLACK);
+		        }
+		    }
+		});
+		
+		
+		JTextField ncodigo = new JTextField();
+		ncodigo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				 if (ncodigo.getText().equals("Area Code")) {
+			        	ncodigo.setText("");
+			        	ncodigo.setForeground(Color.BLACK);
+			        }
+			    }
+			    @Override
+			    public void focusLost(FocusEvent e) {
+			        if (ncodigo.getText().isEmpty()) {
+			        	ncodigo.setText("Area Code");
+			        	ncodigo.setForeground(Color.BLACK);
+			        }
+			    }
+			});
+			
 		ncodigo.addKeyListener(new KeyAdapter() {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
@@ -281,8 +325,6 @@ public class ventanaPrincipal extends JFrame {
 		    }
 		});
 		
-		
-		
 		ncodigo.setBounds(164, 246, 110, 42);
 		ncodigo.setText("Area Code");
 		ncodigo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -291,6 +333,8 @@ public class ventanaPrincipal extends JFrame {
 		ncodigo.setColumns(10);
 		ncodigo.setBackground(SystemColor.controlHighlight);
 		contentPane.add(ncodigo);
+		
+		
 		
 		ntelefono = new JTextField();
 		ntelefono.addFocusListener(new FocusAdapter() {
@@ -331,6 +375,7 @@ public class ventanaPrincipal extends JFrame {
 		
 		
 		JLabel lblSelectYourRegion = new JLabel("Select your Region");
+		lblSelectYourRegion.setForeground(new Color(0, 255, 0));
 		lblSelectYourRegion.setBounds(86, 340, 131, 19);
 		lblSelectYourRegion.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		contentPane.add(lblSelectYourRegion);
@@ -350,6 +395,7 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/Imagenes/name_30px.png")));
 		lblNewLabel_2.setBounds(29, 98, 47, 51);
 		contentPane.add(lblNewLabel_2);
@@ -365,6 +411,7 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(lblNewLabel_3_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Do you already have an account? ");
+		lblNewLabel_4.setForeground(new Color(0, 255, 0));
 		lblNewLabel_4.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		lblNewLabel_4.setBounds(142, 614, 225, 21);
 		contentPane.add(lblNewLabel_4);
@@ -376,6 +423,7 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(login);
 		
 		JLabel lblNewLabel_1_3_1 = new JLabel("Password");
+		lblNewLabel_1_3_1.setForeground(new Color(0, 255, 0));
 		lblNewLabel_1_3_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		lblNewLabel_1_3_1.setBounds(86, 420, 77, 19);
 		contentPane.add(lblNewLabel_1_3_1);
@@ -386,6 +434,7 @@ public class ventanaPrincipal extends JFrame {
 		contentPane.add(lblNewLabel_3_1_1);
 		
 		JLabel lblNewLabel_1_3_1_1 = new JLabel("Repeat Password");
+		lblNewLabel_1_3_1_1.setForeground(new Color(0, 255, 0));
 		lblNewLabel_1_3_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		lblNewLabel_1_3_1_1.setBounds(32, 502, 131, 19);
 		contentPane.add(lblNewLabel_1_3_1_1);
@@ -399,6 +448,15 @@ public class ventanaPrincipal extends JFrame {
 		contraseña.setBackground(SystemColor.controlHighlight);
 		contraseña.setBounds(164, 409, 339, 42);
 		contentPane.add(contraseña);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setBounds(0, 72, 523, -6);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("New label");
+		lblNewLabel_6.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/Imagenes/HD-wallpaper-circuit-neon-green-abstract-android-black-board-circuits-computer-motherboard-tech-technology.jpg")));
+		lblNewLabel_6.setBounds(-174, 0, 740, 758);
+		contentPane.add(lblNewLabel_6);
 	}
 }
 
